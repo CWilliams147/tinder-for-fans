@@ -1,0 +1,31 @@
+.nav-bar {
+  margin-top: 10px;
+  background-color: #002c54;
+  align-self: center;
+  display: flex;
+  width: 95vw;
+  height: 75px;
+  box-shadow: 0px 3px 3px #212121;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.kickoff {
+  display: flex;
+  align-items: center;
+}
+
+.matches {
+  display: flex;
+  align-items: center;
+}
+
+.squad {
+  display: flex;
+  align-items: center;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+}
