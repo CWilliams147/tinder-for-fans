@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register, { action as registerAction } from "./Register";
+import Login, { action as loginAction } from "./Login";
+// import Matches from "./Matches";
 import Layout from "../pages/Layout";
 import Error from "../pages/Error";
 import Home from "./Home";
@@ -19,6 +21,15 @@ const Routes = () => {
           element: <Register />,
           action: registerAction,
         },
+        {
+          path: "/login",
+          element: <Login />,
+          action: loginAction,
+        },
+        // {
+        //   path: "/matches",
+        //   element: <Matches />,
+        // },
       ],
     },
   ];
