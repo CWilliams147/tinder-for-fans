@@ -1,28 +1,93 @@
-import os
-from dotenv import load_dotenv
+import { useState } from "preact/hooks";
+import { Form, redirect } from "react-router-dom";
+import Nav from "../components/Nav";
 
-from fastapi import APIRouter, Request, Form
-from fastapi.templating import Jinja2Templates
+export async function action({ request }) {
+  const formData = await request.formData();
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const password = formData.get("password");
+  const logindata = { name, email, password };
 
-from supabase_py import create_client, Client
+  try {
+    const url = `${import.meta.env.VITE_SOURCE_URL}/login`;
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(logindata),
+    };
 
-router = APIRouter()
-templates = Jinja2Templates(directory="templates")
+    const response = await fetch(url, options);
+    const data = await response.json();
 
-load_dotenv() # Load environment variables from .env
+    if (response.ok) {
+      return redirect("/");
+    } else {
+      console.log("Login failed:", data.error);
+    }
+  } catch (error) {
+    console.error("ERROR: ", error);
+  }
+}
 
-supabase_url = os.getenv("SUPABASE_URL")
-supabase_key = os.getenv("SUPABASE_KEY") 
+const Login = ({ history }) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-supabase: Client = create_client(supabase_url, supabase_key)
+  return (
+    <>
+      <div className="onloading-background">
+        <div className="login-form">
+          <div className="login-header">Log In</div>
+          <Form method="post">
+            <div className="input-container">
+              <label>
+                Your Name
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className="login-input"
+                />
+              </label>
+            </div>
+            <div className="input-container">
+              <label>
+                Your Email
+                <input
+                  type="text"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="login-input"
+                />
+              </label>
+            </div>
+            <div className="input-container">
+              <label>
+                Your Password
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="login-input"
+                />
+              </label>
+            </div>
+            <button type="submit">Login User</button>
+          </Form>
+        </div>
+      </div>
+    </>
+  );
+};
 
-@router.get("/login")
-async def get_login(request: Request):
-    # ...
-
-@router.post("/login")  
-async def post_login(
-    email: str = Form(),
-    password: str = Form()   
-):
-    # ...
+export default Login;
