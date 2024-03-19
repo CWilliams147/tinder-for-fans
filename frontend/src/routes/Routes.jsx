@@ -3,6 +3,8 @@ import Register, { action as registerAction } from "./Register";
 import Login, { action as loginAction } from "./Login";
 import Logout, { action as logoutAction } from "./Logout";
 import CreateProfile, { action as createProfileAction } from "./CreateProfile";
+import ContactPage from "./ContactPage";
+// import Matches from "./Matches";
 import Layout from "../pages/Layout";
 import Error from "../pages/Error";
 import Home from "./Home";
@@ -36,6 +38,14 @@ const Routes = () => {
           path: "/createprofile",
           element: <CreateProfile />,
           action: createProfileAction,
+        },
+        // {
+        //   path: "/matches",
+        //   element: <Matches />,
+        // },
+        {
+          path: "/contact",
+          element: <ContactPage />,
         },
       ],
     },
