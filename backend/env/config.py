@@ -1,2 +1,0 @@
-url='https://oiqeacnqaafatdeoccav.supabase.co'
-api='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9pcWVhY25xYWFmYXRkZW9jY2F2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAxODMzODgsImV4cCI6MjAyNTc1OTM4OH0.yVU8f4kWBBmqar5w8BV7jZfpRhZ9HIDWwEEuwniJWA0'
