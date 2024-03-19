@@ -1,4 +1,4 @@
-.nav-bar {
+nav {
   margin-top: 10px;
   background-color: #002c54;
   align-self: center;
@@ -28,4 +28,10 @@
 .contact {
   display: flex;
   align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .contact {
+    font-size: 10.5px;
+  }
 }
