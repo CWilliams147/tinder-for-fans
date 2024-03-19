@@ -1,39 +1,47 @@
 import { useState } from "preact/hooks";
 import { Form, redirect } from "react-router-dom";
 import Nav from "../components/Nav";
+import supabase from "../supabase";
 
 export async function action({ request }) {
   const formData = await request.formData();
-  const name = formData.get("name");
   const email = formData.get("email");
   const password = formData.get("password");
-  const logindata = { name, email, password };
+
+  const loginData = { email, password };
 
   try {
-    const url = `${import.meta.env.VITE_SOURCE_URL}/login`;
-    const options = {
-      method: "POST",
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(logindata),
-    };
+      body: JSON.stringify(loginData),
+    });
+    console.log(data);
 
-    const response = await fetch(url, options);
-    const data = await response.json();
+    const response = { data, error };
+    const statusCode = response.status;
 
-    if (response.ok) {
-      return redirect("/");
-    } else {
-      console.log("Login failed:", data.error);
+    if (statusCode === 200) {
+      const data = await response.json();
+      const { session, user } = data;
+      localStorage.clear();
+      localStorage.setItem("user_id", user.id);
+      localStorage.setItem("access_token", session.access_token);
+      localStorage.setItem("refresh_token", session.refresh_token);
+      localStorage.setItem("expiration", session.expires_at);
     }
+    return redirect("/");
+    // return statusCode === 200 ? true : false;
   } catch (error) {
     console.error("ERROR: ", error);
   }
+  return redirect("/");
 }
 
 const Login = ({ history }) => {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -43,19 +51,6 @@ const Login = ({ history }) => {
         <div className="login-form">
           <div className="login-header">Log In</div>
           <Form method="post">
-            <div className="input-container">
-              <label>
-                Your Name
-                <input
-                  type="text"
-                  name="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  className="login-input"
-                />
-              </label>
-            </div>
             <div className="input-container">
               <label>
                 Your Email
