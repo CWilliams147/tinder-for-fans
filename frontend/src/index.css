@@ -38,7 +38,8 @@ h1 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  /* border: 1px solid transparent; */
+  border: 1px solid #ffffff;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -75,6 +76,11 @@ button:focus-visible {
   justify-content: center;
   height: 100%;
   width: 100%;
+}
+
+.or-divider {
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .login-form {
@@ -153,4 +159,29 @@ button:focus-visible {
   height: 350px;
   border-radius: 32px;
   margin-top: 15px;
+}
+
+.create-profile-container {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  width: 40vw;
+  height: 60vh;
+  border-radius: 8px;
+  background-color: #002c54;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-profile-form {
+  display: flex;
+  width: 30vw;
+  height: 35vh;
+  align-items: end;
+  margin-bottom: 40px;
+}
+
+.create-profile-inputs {
+  display: flex;
+  justify-content: center;
 }
