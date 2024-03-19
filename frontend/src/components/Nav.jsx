@@ -3,22 +3,22 @@ import "./nav.css";
 
 const Nav = () => {
   return (
-    <header className="nav-bar">
-      <div>
+    <nav className="nav-bar">
+      <div className="kickoff">
+        <button>Kickoff</button>
+      </div>
+      <div className="matches">
         <Link to="/matches">
-          <button className="kickoff">Kickoff</button>
+          <button>Matches</button>
         </Link>
       </div>
-      <div>
-        <button className="matches">Matches</button>
+      <div className="squad">
+        <button>Squad</button>
       </div>
-      <div>
-        <button className="squad">Squad</button>
+      <div className="contact">
+        <button>Get in Touch</button>
       </div>
-      <div>
-        <button className="contact">Get in Touch</button>
-      </div>
-    </header>
+    </nav>
   );
 };
 export default Nav;
