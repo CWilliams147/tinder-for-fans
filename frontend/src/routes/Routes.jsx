@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register, { action as registerAction } from "./Register";
 import Login, { action as loginAction } from "./Login";
-// import Matches from "./Matches";
+import Logout, { action as logoutAction } from "./Logout";
+import CreateProfile, { action as createProfileAction } from "./CreateProfile";
 import Layout from "../pages/Layout";
 import Error from "../pages/Error";
 import Home from "./Home";
@@ -26,10 +27,16 @@ const Routes = () => {
           element: <Login />,
           action: loginAction,
         },
-        // {
-        //   path: "/matches",
-        //   element: <Matches />,
-        // },
+        {
+          path: "/logout",
+          element: <Logout />,
+          action: logoutAction,
+        },
+        {
+          path: "/createprofile",
+          element: <CreateProfile />,
+          action: createProfileAction,
+        },
       ],
     },
   ];
