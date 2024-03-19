@@ -39,11 +39,12 @@ const CreateProfile = () => {
   const [teams, setTeams] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState("");
 
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const teamsData = await action({}); // Call the action function to fetch teams
+        const teamsData = await action({});
         setTeams(teamsData);
       } catch (error) {
         console.error("Error fetching teams:", error);
@@ -58,7 +59,15 @@ const CreateProfile = () => {
   };
 
   const handleProfilePictureChange = (e) => {
-    setProfilePicture(e.target.files[0]);
+    const file = e.target.files[0];
+    setProfilePicture(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -75,11 +84,14 @@ const CreateProfile = () => {
               <label>Select Team:</label>
               <select value={selectedTeam} onChange={handleTeamChange}>
                 <option value="">Select Team</option>
-                {teams.map((team) => (
-                  <option key={team.team_id} value={team.team_id}>
-                    {team.name}
-                  </option>
-                ))}
+                {teams.map((entry) => {
+                  //   console.log("TEAM IS: ", entry.team);
+                  return (
+                    <option key={entry.team.team_id} value={entry.team.team_id}>
+                      {entry.team.name}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div className="create-profile-inputs">
@@ -89,6 +101,13 @@ const CreateProfile = () => {
                 accept="image/*"
                 onChange={handleProfilePictureChange}
               />
+              {previewUrl && (
+                <img
+                  src={previewUrl}
+                  alt="Profile Preview"
+                  style={{ maxWidth: "100px", maxHeight: "100px" }}
+                />
+              )}
             </div>
           </div>
           <button type="submit">Create Profile</button>
