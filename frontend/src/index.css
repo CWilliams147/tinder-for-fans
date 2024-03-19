@@ -89,7 +89,7 @@ button:focus-visible {
   flex-direction: column;
   width: 40vw;
   height: 60vh;
-  border-radius: 8px;
+  border-radius: 5px;
   background-color: #002c54;
 }
 
@@ -157,7 +157,7 @@ button:focus-visible {
   display: flex;
   width: 350px;
   height: 350px;
-  border-radius: 32px;
+  border-radius: 35px;
   margin-top: 15px;
 }
 
@@ -165,9 +165,9 @@ button:focus-visible {
   display: flex;
   align-self: center;
   flex-direction: column;
-  width: 40vw;
+  width: 50vw;
   height: 60vh;
-  border-radius: 8px;
+  border-radius: 5px;
   background-color: #002c54;
   justify-content: center;
   align-items: center;
@@ -184,4 +184,50 @@ button:focus-visible {
 .create-profile-inputs {
   display: flex;
   justify-content: center;
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    overflow: hidden;
+  }
+
+  .login-form,
+  .create-profile-container {
+    width: 90%; /* Adjust the width of the forms */
+    height: 70%;
+  }
+
+  .home-title {
+    font-size: 36px; /* Reduce the font size of the titles */
+    height: auto; /* Adjust the height of the titles */
+  }
+
+  .home-title2 {
+    font-size: 36px; /* Reduce the font size of the titles */
+    height: auto; /* Adjust the height of the titles */
+  }
+
+  .home-button {
+    width: 100%;
+  }
+
+  .home-img {
+    width: 80%; /* Adjust the width of the images */
+    height: auto; /* Adjust the height of the images */
+  }
+
+  .create-profile-form {
+    width: 90%; /* Adjust the width of the forms */
+  }
+
+  .create-profile-inputs {
+    flex-direction: column; /* Change the direction of the input elements to column */
+    align-items: center; /* Align items to the center */
+    margin-bottom: 20px; /* Adjust the margin-bottom of the input elements */
+  }
+
+  .onloading-background {
+    height: 100%;
+    width: 100%;
+  }
 }
