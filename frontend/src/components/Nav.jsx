@@ -16,7 +16,9 @@ const Nav = () => {
         <button>Squad</button>
       </div>
       <div className="contact">
-        <button>Get in Touch</button>
+        <Link to="/contact">
+          <button>Get in Touch</button>
+        </Link>
       </div>
     </nav>
   );
