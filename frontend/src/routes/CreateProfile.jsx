@@ -73,42 +73,41 @@ const CreateProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!profilePicture) {
+    const formData = new FormData(e.target);
+
+    const file = formData.get("profile_picture");
+    if (!file) {
       alert("Please select a profile picture.");
       return;
     }
 
-    const fileName = `user-profile-${Date.now()}-${profilePicture.name}`;
-    console.log("FILENAME:", fileName);
+    const team = formData.get("team");
 
-    const { data: uploadData, error: uploadError } = await supabase.storage
-      .from("profiles")
-      .upload(`test/test.jpg`, profilePicture);
+    const fileName = `user-profile-${Date.now()}-${file.name}`;
 
-    if (uploadError) {
-      console.error("Error uploading profile picture:", uploadError.message);
-      return;
+    try {
+      const { error: uploadError } = await supabase.storage
+        .from("profiles")
+        .upload(fileName, file);
+
+      if (uploadError) throw new Error(uploadError.message);
+
+      const { publicURL, error: urlError } = supabase.storage
+        .from("profiles")
+        .getPublicUrl(fileName);
+
+      if (urlError) throw new Error(urlError.message);
+
+      const { error: insertError } = await supabase
+        .from("user_profile-data")
+        .insert([{ team: team, profile_picture: publicURL }]);
+
+      if (insertError) throw new Error(insertError.message);
+
+      alert("Profile created successfully!");
+    } catch (error) {
+      console.error("Error:", error.message);
     }
-
-    const { publicURL, error: urlError } = supabase.storage
-      .from("profiles")
-      .getPublicUrl(fileName);
-
-    if (urlError) {
-      console.error("Error getting profile picture URL:", urlError.message);
-      return;
-    }
-
-    const { error: insertError } = await supabase
-      .from("user_profile-data")
-      .insert([{ team: selectedTeam, profile_picture: publicURL }]);
-
-    if (insertError) {
-      console.error("Error inserting user profile data:", insertError.message);
-      return;
-    }
-
-    console.log("Profile created successfully!");
   };
 
   return (
