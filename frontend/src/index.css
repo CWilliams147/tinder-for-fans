@@ -166,7 +166,7 @@ button:focus-visible {
   align-self: center;
   flex-direction: column;
   width: 50vw;
-  height: 60vh;
+  height: 70vh;
   border-radius: 5px;
   background-color: #002c54;
   justify-content: center;
@@ -176,7 +176,7 @@ button:focus-visible {
 .create-profile-form {
   display: flex;
   width: 30vw;
-  height: 35vh;
+  height: 20vh;
   align-items: end;
   margin-bottom: 40px;
 }
@@ -184,6 +184,18 @@ button:focus-visible {
 .create-profile-inputs {
   display: flex;
   justify-content: center;
+}
+
+.create-profile-image {
+  display: flex;
+  justify-content: center;
+  width: 15em;
+  border-radius: 20px;
+}
+
+.create-profile-button {
+  display: flex;
+  margin-bottom: 2em;
 }
 
 @media only screen and (max-width: 768px) {
