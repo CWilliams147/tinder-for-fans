@@ -1,44 +1,36 @@
 import { useState } from "preact/hooks";
 import { Form, redirect } from "react-router-dom";
-import Nav from "../components/Nav";
 import supabase from "../supabase";
+import Error from "../pages/Error";
 
 export async function action({ request }) {
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
 
-  const loginData = { email, password };
-
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(loginData),
     });
-    console.log(data);
 
-    const response = { data, error };
-    const statusCode = response.status;
-
-    if (statusCode === 200) {
-      const data = await response.json();
-      const { session, user } = data;
-      localStorage.clear();
-      localStorage.setItem("user_id", user.id);
-      localStorage.setItem("access_token", session.access_token);
-      localStorage.setItem("refresh_token", session.refresh_token);
-      localStorage.setItem("expiration", session.expires_at);
+    if (error) {
+      throw error;
     }
-    return redirect("/");
-    // return statusCode === 200 ? true : false;
+
+    if (data.session) {
+      localStorage.clear();
+      localStorage.setItem("user_id", data.user.id);
+      localStorage.setItem("access_token", data.session.access_token);
+      localStorage.setItem("refresh_token", data.session.refresh_token);
+      localStorage.setItem("expiration", data.session.expires_at.toString());
+      return redirect("/");
+    }
   } catch (error) {
-    console.error("ERROR: ", error);
+    console.error("ERROR: ", error.message);
+    return Error;
   }
-  return redirect("/");
+  return redirect("/login");
 }
 
 const Login = ({ history }) => {
