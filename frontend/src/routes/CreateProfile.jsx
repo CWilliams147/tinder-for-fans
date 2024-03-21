@@ -5,7 +5,7 @@ import axios from "axios";
 async function fetchTop50Teams() {
   const options = {
     method: "GET",
-    // url: "https://api-football-v1.p.rapidapi.com/v3/teams",
+    url: "https://api-football-v1.p.rapidapi.com/v3/teams",
     params: {
       country: "England",
     },
@@ -72,45 +72,85 @@ const CreateProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!profilePicture) {
+      alert("Please select a profile picture.");
+      return;
+    }
+
+    const fileName = `user-profile-${Date.now()}-${profilePicture.name}`;
+    console.log("FILENAME:", fileName);
+
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from("profiles")
+      .upload(`test/test.jpg`, profilePicture);
+
+    if (uploadError) {
+      console.error("Error uploading profile picture:", uploadError.message);
+      return;
+    }
+
+    const { publicURL, error: urlError } = supabase.storage
+      .from("profiles")
+      .getPublicUrl(fileName);
+
+    if (urlError) {
+      console.error("Error getting profile picture URL:", urlError.message);
+      return;
+    }
+
+    const { error: insertError } = await supabase
+      .from("user_profile-data")
+      .insert([{ team: selectedTeam, profile_picture: publicURL }]);
+
+    if (insertError) {
+      console.error("Error inserting user profile data:", insertError.message);
+      return;
+    }
+
+    console.log("Profile created successfully!");
   };
 
   return (
     <div className="onloading-background">
       <div className="create-profile-container">
         <h2>Create Your Profile</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="create-profile-form">
-            <div className="create-profile-inputs">
-              <label>Select Team:</label>
-              <select value={selectedTeam} onChange={handleTeamChange}>
-                <option value="">Select Team</option>
-                {teams.map((entry) => {
-                  //   console.log("TEAM IS: ", entry.team);
-                  return (
-                    <option key={entry.team.team_id} value={entry.team.team_id}>
-                      {entry.team.name}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="create-profile-inputs">
-              <label>Upload Profile Picture:</label>
+        {previewUrl && (
+          <img
+            src={previewUrl}
+            alt="Profile Preview"
+            className="create-profile-image"
+          />
+        )}
+        <form className="create-profile-form" onSubmit={handleSubmit}>
+          <div className="create-profile-inputs">
+            <label>Select Team:</label>
+            <select value={selectedTeam} onChange={handleTeamChange}>
+              <option value="">Select Team</option>
+              {teams.map((entry) => {
+                //   console.log("TEAM IS: ", entry.team);
+                return (
+                  <option key={entry.team.team_id} value={entry.team.team_id}>
+                    {entry.team.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="create-profile-inputs">
+            <label>
+              Upload Profile Picture:
               <input
+                name="profile_picture"
                 type="file"
                 accept="image/*"
                 onChange={handleProfilePictureChange}
               />
-              {previewUrl && (
-                <img
-                  src={previewUrl}
-                  alt="Profile Preview"
-                  style={{ maxWidth: "100px", maxHeight: "100px" }}
-                />
-              )}
-            </div>
+            </label>
           </div>
-          <button type="submit">Create Profile</button>
+          <button className="create-profile-button" type="submit">
+            Create Profile
+          </button>
         </form>
       </div>
     </div>
