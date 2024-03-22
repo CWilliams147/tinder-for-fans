@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register, { action as registerAction } from "./Register";
 import Login, { action as loginAction } from "./Login";
 import Logout, { action as logoutAction } from "./Logout";
-import CreateProfile, { action as createProfileAction } from "./CreateProfile";
+import CreateProfile from "./CreateProfile";
 import ContactPage from "./ContactPage";
 // import Matches from "./Matches";
 import Layout from "../pages/Layout";
