@@ -6,9 +6,7 @@ async function fetchTop50Teams() {
   const options = {
     method: "GET",
     url: "https://api-football-v1.p.rapidapi.com/v3/teams",
-    params: {
-      country: "England",
-    },
+    params: { country: "England" },
     headers: {
       "X-RapidAPI-Key": "1cf21f8c6bmshe9b2f507ab3ff31p1b4effjsn39fb01da858e",
       "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
@@ -58,55 +56,43 @@ const CreateProfile = () => {
     setSelectedTeam(e.target.value);
   };
 
-  const handleProfilePictureChange = (e) => {
-    const file = e.target.files[0];
-    setProfilePicture(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setPreviewUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+  const handleProfilePictureChange = async (e) => {
+    const formData = new FormData(e.target.form);
+    const photo = formData.get("profile_picture");
+
+    const fileName = photo.name;
+    const { data, error } = await supabase.storage
+      .from("profile-photos")
+      .upload(`ProfilePictures/${fileName}`, photo);
+    console.log("data, or error", data, error);
+    setProfilePicture(data.path);
+
+    const { ExportedData } = supabase.storage
+      .from("profile-photos")
+      .getPublicUrl(data.path);
+
+    console.log("exported data", ExportedData);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("PROFILE PHOTO:", profilePicture);
 
-    const formData = new FormData(e.target);
-
-    const file = formData.get("profile_picture");
-    if (!file) {
-      alert("Please select a profile picture.");
+    const { error } = await supabase
+      .from("profile")
+      .update([{ team: selectedTeam, profile_picture: profilePicture }])
+      .eq("id", "7c193a2d-1162-4619-a7af-93b5c8a2cd48");
+    if (!profilePicture || !selectedTeam) {
+      alert("Please select a team and a profile picture.");
       return;
     }
 
-    const team = formData.get("team");
-
-    const fileName = `user-profile-${Date.now()}-${file.name}`;
-
     try {
-      const { error: uploadError } = await supabase.storage
-        .from("profiles")
-        .upload(fileName, file);
-
-      if (uploadError) throw new Error(uploadError.message);
-
-      const { publicURL, error: urlError } = supabase.storage
-        .from("profiles")
-        .getPublicUrl(fileName);
-
-      if (urlError) throw new Error(urlError.message);
-
-      const { error: insertError } = await supabase
-        .from("user_profile-data")
-        .insert([{ team: team, profile_picture: publicURL }]);
-
-      if (insertError) throw new Error(insertError.message);
+      if (error) throw error;
 
       alert("Profile created successfully!");
     } catch (error) {
-      console.error("Error:", error.message);
+      console.error("Error creating profile:", error.message);
     }
   };
 
@@ -124,28 +110,27 @@ const CreateProfile = () => {
         <form className="create-profile-form" onSubmit={handleSubmit}>
           <div className="create-profile-inputs">
             <label>Select Team:</label>
-            <select value={selectedTeam} onChange={handleTeamChange}>
+            <select
+              name="team"
+              value={selectedTeam}
+              onChange={handleTeamChange}
+            >
               <option value="">Select Team</option>
-              {teams.map((entry) => {
-                //   console.log("TEAM IS: ", entry.team);
-                return (
-                  <option key={entry.team.team_id} value={entry.team.team_id}>
-                    {entry.team.name}
-                  </option>
-                );
-              })}
+              {teams.map((entry) => (
+                <option key={entry.team.team_id} value={entry.team.team_id}>
+                  {entry.team.name}
+                </option>
+              ))}
             </select>
           </div>
           <div className="create-profile-inputs">
-            <label>
-              Upload Profile Picture:
-              <input
-                name="profile_picture"
-                type="file"
-                accept="image/*"
-                onChange={handleProfilePictureChange}
-              />
-            </label>
+            <label>Upload Profile Picture:</label>
+            <input
+              name="profile_picture"
+              type="file"
+              accept="image/*"
+              onChange={handleProfilePictureChange}
+            />
           </div>
           <button className="create-profile-button" type="submit">
             Create Profile
