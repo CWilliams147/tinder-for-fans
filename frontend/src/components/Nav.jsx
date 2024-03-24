@@ -4,18 +4,18 @@ import "./nav.css";
 const Nav = () => {
   return (
     <nav className="nav-bar">
-      <div className="kickoff">
+      <div className="nav-kickoff">
         <button>Kickoff</button>
       </div>
-      <div className="matches">
+      <div className="nav-matches">
         <Link to="/matches">
           <button>Matches</button>
         </Link>
       </div>
-      <div className="squad">
+      <div className="nav-squad">
         <button>Squad</button>
       </div>
-      <div className="contact">
+      <div className="nav-contact">
         <Link to="/contact">
           <button>Get in Touch</button>
         </Link>
