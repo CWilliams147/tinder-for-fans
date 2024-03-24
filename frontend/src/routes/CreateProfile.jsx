@@ -81,7 +81,7 @@ const CreateProfile = () => {
     const { error } = await supabase
       .from("profile")
       .update([{ team: selectedTeam, profile_picture: profilePicture }])
-      .eq("id", "7c193a2d-1162-4619-a7af-93b5c8a2cd48");
+      .eq("id", "c5b8eb93-80ab-404f-b44f-8b9c147d3c81");
     if (!profilePicture || !selectedTeam) {
       alert("Please select a team and a profile picture.");
       return;
