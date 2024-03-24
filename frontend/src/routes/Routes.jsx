@@ -4,7 +4,8 @@ import Login, { action as loginAction } from "./Login";
 import Logout, { action as logoutAction } from "./Logout";
 import CreateProfile from "./CreateProfile";
 import ContactPage from "./ContactPage";
-// import Matches from "./Matches";
+import Matches from "./Matches";
+import ProfileDisplay from "./ProfileDisplay";
 import Layout from "../pages/Layout";
 import Error from "../pages/Error";
 import Home from "./Home";
@@ -33,28 +34,32 @@ const router = createBrowserRouter([
       {
         path: "logout",
         element: (
-          <ProtectedRoute>
-            <Logout />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <Logout />
+          // </ProtectedRoute>
         ),
         action: logoutAction,
       },
       {
         path: "contact",
         element: (
-          <ProtectedRoute>
-            <ContactPage />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <ContactPage />
+          // </ProtectedRoute>
         ),
       },
-      // {
-      //   path: "matches",
-      //   element: (
-      //     <ProtectedRoute>
-      //       <Matches />
-      //     </ProtectedRoute>
-      //   ),
-      // },
+      {
+        path: "profiledisplay",
+        element: (
+          // <ProtectedRoute>
+          <ProfileDisplay />
+          // </ProtectedRoute>
+        ),
+      },
+      {
+        path: "matches",
+        element: <Matches />,
+      },
     ],
   },
 ]);
