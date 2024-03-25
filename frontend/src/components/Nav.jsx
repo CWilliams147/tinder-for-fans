@@ -13,7 +13,9 @@ const Nav = () => {
         </Link>
       </div>
       <div className="nav-squad">
-        <button>Squad</button>
+        <Link to="/squad">
+          <button>Squad</button>
+        </Link>
       </div>
       <div className="nav-contact">
         <Link to="/contact">
