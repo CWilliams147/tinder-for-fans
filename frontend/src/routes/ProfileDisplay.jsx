@@ -5,14 +5,13 @@ const ProfileDisplay = ({ team }) => {
   const [profiles, setProfiles] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Fetch profiles from Supabase
   const fetchProfiles = async () => {
     const { data, error } = await supabase
       .from("profile")
       .select("*")
       .eq("team", team);
 
-    console.log(data, error); // Add this line to log data and errors
+    console.log(data, error);
 
     if (error) {
       console.error("Error fetching profiles:", error.message);
@@ -22,17 +21,14 @@ const ProfileDisplay = ({ team }) => {
     setProfiles(data);
   };
 
-  // Effect to fetch profiles on component mount and team change
   useEffect(() => {
     fetchProfiles();
   }, [team]);
 
-  // Function to handle cycling through profiles
   const handleNextProfile = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % profiles.length);
   };
 
-  // Display the current profile, or a message if no profiles are available
   return (
     <div>
       {profiles.length > 0 ? (
