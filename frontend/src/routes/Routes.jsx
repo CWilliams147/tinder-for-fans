@@ -10,6 +10,7 @@ import Layout from "../pages/Layout";
 import Error from "../pages/Error";
 import Home from "./Home";
 import ProtectedRoute from "./ProtectedRoute";
+import SquadPage from "./SquadPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "matches",
         element: <Matches />,
+      },
+      {
+        path: "squad",
+        element: <SquadPage />,
       },
     ],
   },
