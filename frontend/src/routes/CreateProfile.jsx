@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import supabase from "../supabase";
 import axios from "axios";
 
@@ -40,6 +40,7 @@ const CreateProfile = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const [name, setName] = useState("");
   const [previewUrl, setPreviewUrl] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -63,26 +64,30 @@ const CreateProfile = () => {
   };
 
   const handleProfilePictureChange = async (e) => {
-    const formData = new FormData(e.target.form);
-    const photo = formData.get("profile_picture");
+    const file = e.target.files[0];
+    if (file) {
+      setPreviewUrl(URL.createObjectURL(file));
+      const fileName = file.name;
+      const { data, error } = await supabase.storage
+        .from("profile-photos")
+        .upload(`ProfilePictures/${fileName}`, file);
 
-    const fileName = photo.name;
-    const { data, error } = await supabase.storage
-      .from("profile-photos")
-      .upload(`ProfilePictures/${fileName}`, photo);
-    console.log("data, or error", data, error);
-    setProfilePicture(data.path);
-
-    const { ExportedData } = supabase.storage
-      .from("profile-photos")
-      .getPublicUrl(data.path);
-
-    console.log("exported data", ExportedData);
+      console.log("data, or error", data, error);
+      if (data) {
+        setProfilePicture(data.path);
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("PROFILE PHOTO:", profilePicture);
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    console.log("USER ID:", user.id);
 
     const { error } = await supabase
       .from("profile")
@@ -91,7 +96,7 @@ const CreateProfile = () => {
         profile_picture: profilePicture,
         name: name,
       })
-      .eq("id", "c5b8eb93-80ab-404f-b44f-8b9c147d3c81");
+      .eq("id", user.id);
     if (!profilePicture || !selectedTeam) {
       alert("Please select a team and a profile picture.");
       return;
@@ -101,6 +106,7 @@ const CreateProfile = () => {
       if (error) throw error;
 
       alert("Profile created successfully!");
+      navigate("/");
     } catch (error) {
       console.error("Error creating profile:", error.message);
     }
@@ -110,7 +116,16 @@ const CreateProfile = () => {
     <div className="onloading-background">
       <div className="create-profile-container">
         <h2>Create Your Profile</h2>
-        <form className="create-profile-form" onSubmit={handleSubmit}>
+        <div className="create-profile-image-container">
+          {previewUrl && (
+            <img
+              src={previewUrl}
+              alt="Profile Preview"
+              className="create-profile-image"
+            />
+          )}
+        </div>
+        <form className="create-profile-form" onSubmit={(e) => handleSubmit(e)}>
           <div className="create-profile-inputs">
             <label htmlFor="name">Name:</label>
             <input
@@ -119,6 +134,7 @@ const CreateProfile = () => {
               type="text"
               value={name}
               onChange={handleNameChange}
+              className="create-profile-input-container"
             />
           </div>
           <div className="create-profile-inputs">
@@ -127,6 +143,7 @@ const CreateProfile = () => {
               name="team"
               value={selectedTeam}
               onChange={handleTeamChange}
+              className="create-profile-input-container"
             >
               <option value="">Select Team</option>
               {teams.map((entry) => (
@@ -143,13 +160,12 @@ const CreateProfile = () => {
               type="file"
               accept="image/*"
               onChange={handleProfilePictureChange}
+              class="cssbuttons-io-button"
             />
           </div>
-          <Link to="/">
-            <button className="create-profile-button" type="submit">
-              Create Profile
-            </button>
-          </Link>
+          <button className="create-profile-button" type="submit">
+            Create Profile
+          </button>
         </form>
       </div>
     </div>
