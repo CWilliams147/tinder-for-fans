@@ -1,5 +1,5 @@
 import React from "react";
-import { redirect } from "react-router-dom";
+import { redirect, Link } from "react-router-dom";
 import supabase from "../supabase";
 import Nav from "../components/Nav";
 
@@ -27,7 +27,9 @@ const Logout = () => {
       <Nav />
       <div>
         <p>Click the button below to log out:</p>
-        <button onClick={handleLogout}>Logout</button>
+        <Link to="/">
+          <button onClick={handleLogout}>Logout</button>
+        </Link>
       </div>
     </>
   );
