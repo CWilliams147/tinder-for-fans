@@ -69,7 +69,7 @@ const SquadPage = () => {
 
   const handleTeamChange = (e) => {
     setSelectedTeam(e.target.value);
-    setPlayers([]); // Clear players on team change
+    setPlayers([]);
   };
 
   return (
@@ -77,7 +77,11 @@ const SquadPage = () => {
       <Nav />
       <div className="squad-container">
         <h2>Team Squad</h2>
-        <select value={selectedTeam} onChange={handleTeamChange}>
+        <select
+          className="squad-team-select"
+          value={selectedTeam}
+          onChange={handleTeamChange}
+        >
           <option value="">Select a team</option>
           {teams.map((team) => (
             <option key={team.id} value={team.id}>
