@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Nav from "../components/Nav";
 import supabase from "../supabase";
+import { Link } from "react-router-dom";
 
 const ProfileDisplay = () => {
   const [profiles, setProfiles] = useState([]);
@@ -11,6 +12,7 @@ const ProfileDisplay = () => {
 
   const fetchUserTeam = async () => {
     const userId = localStorage.getItem("user_id");
+    console.log("Fetching user id for user:", userId);
     const { data } = await supabase
       .from("profile")
       .select("team")
@@ -45,22 +47,35 @@ const ProfileDisplay = () => {
   return (
     <>
       <Nav />
-      <div>
+      <div className="profile-display-container">
         {profiles.length > 0 ? (
           <>
-            <div>
+            <div className="profile-display-card">
+              <div className="profile-pic-display">
+                <img
+                  src={`${baseUrl}${profiles[currentIndex].profile_picture}`}
+                  alt="Profile"
+                />
+              </div>
               <h2>{profiles[currentIndex].name}</h2>
-              <img
-                className="profile-pic-display"
-                src={`${baseUrl}${profiles[currentIndex].profile_picture}`}
-                alt="Profile"
-              />
               <div>Team: {profiles[currentIndex].team}</div>
+              <button onClick={handleNextProfile}>Next Profile</button>
             </div>
-            <button onClick={handleNextProfile}>Next Profile</button>
           </>
         ) : (
-          <p>No profiles found for team.</p>
+          <>
+            <div className="profile-display-message-container">
+              <div className="profile-display-message1">
+                Uh Oh... No Profiles Found for Team
+              </div>
+              <div className="profile-display-message2">
+                Make Sure You've Created a Profile and are Signed In
+              </div>
+              <Link to="/register">
+                <div className="login-register-button">Register Now</div>
+              </Link>
+            </div>
+          </>
         )}
       </div>
     </>
