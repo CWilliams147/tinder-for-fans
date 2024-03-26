@@ -22,9 +22,6 @@ nav {
 .nav-button {
   display: flex;
   align-items: center;
-}
-
-.nav-button {
   display: inline-block;
   transition: all 0.2s ease-in;
   position: relative;
