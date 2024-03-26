@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import supabase from "../supabase";
 import axios from "axios";
 
@@ -37,6 +38,7 @@ const CreateProfile = () => {
   const [teams, setTeams] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
+  const [name, setName] = useState("");
   const [previewUrl, setPreviewUrl] = useState("");
 
   useEffect(() => {
@@ -54,6 +56,10 @@ const CreateProfile = () => {
 
   const handleTeamChange = (e) => {
     setSelectedTeam(e.target.value);
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
   };
 
   const handleProfilePictureChange = async (e) => {
@@ -80,7 +86,11 @@ const CreateProfile = () => {
 
     const { error } = await supabase
       .from("profile")
-      .update([{ team: selectedTeam, profile_picture: profilePicture }])
+      .update({
+        team: selectedTeam,
+        profile_picture: profilePicture,
+        name: name,
+      })
       .eq("id", "c5b8eb93-80ab-404f-b44f-8b9c147d3c81");
     if (!profilePicture || !selectedTeam) {
       alert("Please select a team and a profile picture.");
@@ -100,14 +110,17 @@ const CreateProfile = () => {
     <div className="onloading-background">
       <div className="create-profile-container">
         <h2>Create Your Profile</h2>
-        {previewUrl && (
-          <img
-            src={previewUrl}
-            alt="Profile Preview"
-            className="create-profile-image"
-          />
-        )}
         <form className="create-profile-form" onSubmit={handleSubmit}>
+          <div className="create-profile-inputs">
+            <label htmlFor="name">Name:</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              value={name}
+              onChange={handleNameChange}
+            />
+          </div>
           <div className="create-profile-inputs">
             <label>Select Team:</label>
             <select
@@ -132,9 +145,11 @@ const CreateProfile = () => {
               onChange={handleProfilePictureChange}
             />
           </div>
-          <button className="create-profile-button" type="submit">
-            Create Profile
-          </button>
+          <Link to="/">
+            <button className="create-profile-button" type="submit">
+              Create Profile
+            </button>
+          </Link>
         </form>
       </div>
     </div>
