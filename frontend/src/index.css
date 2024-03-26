@@ -353,6 +353,46 @@ button:focus-visible {
   justify-content: center;
 }
 
+.squad-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.squad-team-select {
+  width: 20vw;
+  height: 7vh;
+  background: #e8e8e8;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  color: white;
+  justify-content: center;
+  border: 5px solid #c5001a;
+  border-radius: 8px;
+  color: #002c54;
+  box-shadow: 0px 1px 10px 1px #eeeeee;
+}
+
+.player-list {
+  width: 80vw;
+  height: 60vh;
+  font-size: 40px;
+  overflow: scroll;
+  border: 2px solid #e8e8e8;
+  border-radius: 10px;
+  margin-top: 20px;
+  box-shadow: 0px 5px 10px 10px #1e1e1e;
+}
+
+.profile-pic-display {
+  display: flex;
+  width: 10vw;
+  height: 10vh;
+}
+
 @media only screen and (max-width: 768px) {
   body {
     overflow: hidden;
