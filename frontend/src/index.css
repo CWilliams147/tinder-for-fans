@@ -78,14 +78,52 @@ button:focus-visible {
   width: 100%;
 }
 
+.register-form-container {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  flex-direction: column;
+  width: 45vw;
+  height: 60vh;
+  border-radius: 5px;
+  background-color: #002c54;
+  box-shadow: 0 5px 15px #1e1e1e;
+}
+
+.register-form {
+  width: 15vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-input-container {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.register-input {
+  width: 12vw;
+  height: 2.5vh;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.register-button {
+  width: 15vw;
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+
 .or-divider {
-  padding-top: 40px;
+  padding-top: 35px;
   padding-bottom: 40px;
 }
 
-.login-form {
+.login-form-container {
   display: flex;
   align-self: center;
+  align-items: center;
   flex-direction: column;
   width: 40vw;
   height: 60vh;
@@ -100,15 +138,63 @@ button:focus-visible {
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-style: normal;
+  text-decoration: underline;
+  margin-bottom: 20px;
 }
 
-.input-container {
-  padding: 10px 0px 20px 20px;
-  font-size: 20px;
+.login-form {
+  width: 15vw;
+  height: 22vh;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+.login-input-container {
+  display: flex;
+  margin-bottom: 25px;
 }
 
 .login-input {
-  width: 150px;
+  width: 12vw;
+  height: 2.5vh;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.signin {
+  float: right;
+  max-width: 420px;
+  display: flex;
+  padding: 0.5rem 1.4rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  vertical-align: middle;
+  align-items: center;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  gap: 0.75rem;
+  color: #606060;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0, 0.87, 0.12, 1);
+}
+
+.signin:hover {
+  transform: scale(1.025);
+}
+
+.signin:active {
+  transform: scale(0.975);
+}
+
+button svg {
+  height: 24px;
+  width: auto;
 }
 
 .page-home {
@@ -166,7 +252,7 @@ button:focus-visible {
   align-self: center;
   flex-direction: column;
   width: 50vw;
-  height: 70vh;
+  height: 80vh;
   border-radius: 5px;
   background-color: #002c54;
   justify-content: center;
@@ -176,26 +262,72 @@ button:focus-visible {
 .create-profile-form {
   display: flex;
   width: 30vw;
-  height: 20vh;
-  align-items: end;
-  margin-bottom: 40px;
+  height: 30vh;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.create-profile-input-container {
+  display: flex;
+  margin-left: 10px;
+  width: 9vw;
+  height: 2.5vh;
+  border-radius: 8px;
+  font-size: 14px;
 }
 
 .create-profile-inputs {
   display: flex;
   justify-content: center;
+  text-align: start;
+  margin-bottom: 25px;
+}
+
+.create-profile-image-container {
+  display: flex;
+  justify-content: center;
+  width: 30vw;
+  height: 30vh;
+  overflow: auto;
 }
 
 .create-profile-image {
   display: flex;
-  justify-content: center;
-  width: 15em;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .create-profile-button {
   display: flex;
   margin-bottom: 2em;
+}
+
+.cssbuttons-io-button {
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 17px;
+  padding: 0.8em 1.5em 0.8em 1.2em;
+  color: white;
+  background: #ad5389;
+  background: linear-gradient(185deg, #c5001a 0%, #002c54 100%);
+  border: none;
+  box-shadow: 0 0.2em 1.8em -0.4em rgb(173, 128, 255);
+  letter-spacing: 0.05em;
+  border-radius: 20em;
+}
+
+.cssbuttons-io-button svg {
+  margin-right: 8px;
+}
+
+.cssbuttons-io-button:hover {
+  box-shadow: 0 0.5em 1.5em -0.5em rgb(149, 91, 255);
+}
+
+.cssbuttons-io-button:active {
+  box-shadow: 0 0.3em 1em -0.5em rgb(160, 109, 255);
 }
 
 .matches-container {
@@ -348,8 +480,17 @@ button:focus-visible {
   border-color: #fff;
 }
 
+.contact-page-alignment {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 80vh;
+  align-items: center;
+}
+
 .contact-page-container {
   display: flex;
+  height: 65vh;
   justify-content: center;
 }
 
@@ -389,8 +530,120 @@ button:focus-visible {
 
 .profile-pic-display {
   display: flex;
-  width: 10vw;
-  height: 10vh;
+  justify-content: center;
+  width: 30vw;
+  height: 35vh;
+  overflow: auto;
+}
+
+.profile-display-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 90vh;
+}
+
+.profile-display-card {
+  display: flex;
+  width: 35vw;
+  height: 75vh;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: black;
+  margin-bottom: 5vh;
+}
+
+.profile-display-message-container {
+  display: flex;
+  width: 60vw;
+  height: 50vh;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-display-message1 {
+  display: flex;
+  font-size: 52px;
+  font-weight: bold;
+}
+
+.profile-display-message2 {
+  display: flex;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 75px;
+}
+
+.login-register-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  color: #e8e8e8;
+  cursor: pointer;
+  font-size: 30px;
+  border-radius: 0.5em;
+  background: transparent;
+  border: 1px solid #e8e8e8;
+  width: 15vw;
+  height: 8vh;
+}
+
+.login-register-button:active {
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
+.login-register-button:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.25);
+  top: 100%;
+  width: 140%;
+  height: 180%;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.login-register-button:after {
+  content: "";
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.45);
+  top: 180%;
+  width: 160%;
+  height: 190%;
+  background-color: #c5001a;
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.login-register-button:hover {
+  color: #ffffff;
+}
+
+.login-register-button:hover:before {
+  top: -35%;
+  background-color: #c5001a;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.login-register-button:hover:after {
+  top: -45%;
+  background-color: #c5001a;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
 
 @media only screen and (max-width: 768px) {
