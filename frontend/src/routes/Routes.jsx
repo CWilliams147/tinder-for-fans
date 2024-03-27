@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register, { action as registerAction } from "./Register";
-import Login, { action as loginAction } from "./Login";
+import Login from "./Login";
 import Logout, { action as logoutAction } from "./Logout";
 import CreateProfile from "./CreateProfile";
 import ContactPage from "./ContactPage";
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
-        action: loginAction,
+        // action: loginAction,
       },
       {
         path: "createprofile",
