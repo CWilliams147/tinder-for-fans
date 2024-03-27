@@ -1,48 +1,40 @@
-import { useState } from "preact/hooks";
-import { Form, Link, redirect } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import supabase from "../supabase";
-import Error from "../pages/Error";
 
-export async function action({ request }) {
-  const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
-
-  try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
-
-    if (error) {
-      throw error;
-    }
-
-    if (data.session) {
-      localStorage.clear();
-      localStorage.setItem("user_id", data.user.id);
-      localStorage.setItem("access_token", data.session.access_token);
-      localStorage.setItem("refresh_token", data.session.refresh_token);
-      localStorage.setItem("expiration", data.session.expires_at.toString());
-      return redirect("/");
-    }
-  } catch (error) {
-    console.error("ERROR: ", error.message);
-    return Error;
-  }
-  return redirect("/login");
-}
-
-const Login = ({ history }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { user, session, error } = await supabase.auth.signIn({
+        email: email,
+        password: password,
+      });
+
+      if (error) {
+        setLoginError(error.message);
+        return;
+      }
+
+      navigate("/");
+    } catch (error) {
+      console.error("Login error:", error);
+      setLoginError("An unexpected error occurred.");
+    }
+  };
 
   return (
     <>
       <div className="onloading-background">
         <div className="login-form-container">
-          <div className="login-header">Log In</div>
-          <Form className="login-form" method="post">
+          <h2 className="login-header">Log In</h2>
+          <form className="login-form" onSubmit={handleSubmit}>
             <div className="login-input-container">
               <label>
                 Your Email
@@ -69,13 +61,13 @@ const Login = ({ history }) => {
                 />
               </label>
             </div>
-            <Link to="/">
-              <button type="submit">Login User</button>
-            </Link>
-          </Form>
+            <button type="submit" className="login-submit-btn">
+              Login User
+            </button>
+          </form>
+          {loginError && <p className="login-error">{loginError}</p>}
           <div className="or-divider">------------ or ------------</div>
-
-          <button class="signin">
+          <button className="signin">
             <svg
               viewBox="0 0 256 262"
               preserveAspectRatio="xMidYMid"
