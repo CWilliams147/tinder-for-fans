@@ -23,5 +23,7 @@ To join FanMatch, simply register and create your profile. From there, you can s
 <img width="1707" alt="Screenshot 2024-03-28 at 3 17 38 PM" src="https://github.com/CWilliams147/tinder-for-fans/assets/155680465/d9aedea1-a7d9-4615-aa11-a15e74cb65f4">
 <img width="1707" alt="Screenshot 2024-03-28 at 3 18 21 PM" src="https://github.com/CWilliams147/tinder-for-fans/assets/155680465/0aaf88f5-da07-492e-b8e0-fa03fa50e0c0">
 
-# Below is also a link to my Figma I used to design my site.
- https://www.figma.com/file/sO8R6ohW35Vk5amMllsWW3/Figma-basics?type=design&node-id=1669%3A162202&mode=design&t=rVktbqCNxMklxZuw-1
+# Links
+
+* My Site: https://fanmatch.netlify.app/
+* My Figma: https://www.figma.com/file/sO8R6ohW35Vk5amMllsWW3/Figma-basics?type=design&node-id=1669%3A162202&mode=design&t=rVktbqCNxMklxZuw-1
