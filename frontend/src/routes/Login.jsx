@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const { user, session, error } = await supabase.auth.signIn({
+      const { user, session, error } = await supabase.auth.signInWithPassword({
         email: email,
         password: password,
       });
