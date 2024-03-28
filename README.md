@@ -20,8 +20,9 @@ To join FanMatch, simply register and create your profile. From there, you can s
 * 		As an fan, I want to see upcoming matches for my team and others within the app so that I can plan my viewing schedule and meet-ups.
 * 		As a community member, I want to be able to find my teams players so that I can engage in meaningful conversations about my favorite sport and team.
 # See How FanMatch Looks
-<img width="1707" alt="Screenshot 2024-03-28 at 3 17 38 PM" src="https://github.com/CWilliams147/tinder-for-fans/assets/155680465/d9aedea1-a7d9-4615-aa11-a15e74cb65f4">
-<img width="1707" alt="Screenshot 2024-03-28 at 3 18 21 PM" src="https://github.com/CWilliams147/tinder-for-fans/assets/155680465/0aaf88f5-da07-492e-b8e0-fa03fa50e0c0">
+<img width="1707" alt="Screenshot 2024-03-28 at 6 04 35 PM" src="https://github.com/CWilliams147/tinder-for-fans/assets/155680465/46aa02cf-ce5f-48da-bde6-cf8223d3c1f9">
+<img width="1707" alt="Screenshot 2024-03-28 at 6 06 30 PM" src="https://github.com/CWilliams147/tinder-for-fans/assets/155680465/f6b09427-8aa3-4451-a72f-1cc86464ceb4">
+
 
 # Links
 
