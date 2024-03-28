@@ -206,7 +206,6 @@ button svg {
 .home-title {
   justify-content: center;
   display: flex;
-  margin-top: 25px;
   color: #eeeeee;
   font-size: 126px;
   width: 80%;
@@ -226,17 +225,39 @@ button svg {
 .home-subtitle {
   display: flex;
   justify-content: center;
-  font-size: 20px;
+  font-size: 22px;
+  width: 24vw;
 }
 
 .home-button {
-  margin-top: 30px;
-  background-color: #c5001a;
-  width: 380px;
-  height: 57px;
-  border-radius: 8px;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  width: 20vw;
+  height: 7vh;
+  border: 0 solid;
+  cursor: pointer;
+  font-family: system-ui;
+  font-size: 22px;
+  background: linear-gradient(140deg, #003d76, #c5001a);
+  border-radius: 999px;
+  font-weight: 900;
+  padding: 1.8rem 5rem;
+  position: relative;
+  text-transform: uppercase;
+  margin-top: 15px;
+}
+
+.home-button span {
+  background: #c5001a;
+  border-radius: 999px;
+  color: #fff;
+  display: grid;
+  inset: 5px;
+  place-items: center;
+  position: absolute;
+  transition: background 0.3s;
+}
+
+.home-button:hover span {
+  background: none;
 }
 
 .home-img {
