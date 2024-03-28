@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
 import Nav from "../components/Nav";
 
 const Home = () => {
-  console.log("hello");
   return (
     <>
       <Nav />
