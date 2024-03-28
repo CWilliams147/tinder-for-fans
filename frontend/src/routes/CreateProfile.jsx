@@ -40,6 +40,8 @@ const CreateProfile = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const [name, setName] = useState("");
   const [previewUrl, setPreviewUrl] = useState("");
+  const [bio, setBio] = useState("");
+  const [location, setLocation] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -79,6 +81,17 @@ const CreateProfile = () => {
     }
   };
 
+  const handleBioChange = (e) => {
+    const words = e.target.value.split(/\s+/);
+    if (words.length <= 25 || e.target.value.endsWith(" ")) {
+      setBio(e.target.value);
+    }
+  };
+
+  const handleLocationChange = (e) => {
+    setLocation(e.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("PROFILE PHOTO:", profilePicture);
@@ -95,6 +108,8 @@ const CreateProfile = () => {
         team: selectedTeam,
         profile_picture: profilePicture,
         name: name,
+        bio: bio,
+        location: location,
       })
       .eq("id", user.id);
     if (!profilePicture || !selectedTeam) {
@@ -105,7 +120,7 @@ const CreateProfile = () => {
     try {
       if (error) throw error;
 
-      alert("Profile created successfully!");
+      console.log("Profile created successfully!");
       navigate("/");
     } catch (error) {
       console.error("Error creating profile:", error.message);
@@ -131,11 +146,35 @@ const CreateProfile = () => {
             <input
               id="name"
               name="name"
+              placeholder="Enter Name"
               type="text"
               value={name}
               onChange={handleNameChange}
               className="create-profile-input-container"
             />
+          </div>
+          <div className="create-profile-inputs">
+            <label htmlFor="location">Location:</label>
+            <input
+              id="location"
+              name="location"
+              placeholder="City, State"
+              type="text"
+              value={location}
+              onChange={handleLocationChange}
+              className="create-profile-input-container"
+            />
+          </div>
+          <div className="create-profile-inputs">
+            <label htmlFor="bio">Bio:</label>
+            <textarea
+              id="bio"
+              name="bio"
+              placeholder="Max 25 words"
+              value={bio}
+              onChange={handleBioChange}
+              className="create-profile-input-container"
+            ></textarea>
           </div>
           <div className="create-profile-inputs">
             <label>Select Team:</label>
