@@ -1,14 +1,15 @@
 nav {
-  margin-top: 10px;
+  margin-top: 20px;
   background-color: #002c54;
   align-self: center;
   display: flex;
   width: 95vw;
   height: 75px;
-  box-shadow: 0px 3px 3px #212121;
+  box-shadow: 0px 2px 20px 2px #ffffff50;
   border-radius: 10px;
   align-items: center;
   justify-content: space-evenly;
+  padding: 5px 0px 5px 0px;
 }
 
 .nav-buttons-container {
