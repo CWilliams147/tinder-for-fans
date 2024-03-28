@@ -13,7 +13,7 @@ const Home = () => {
           <button className="home-button">Join the League</button>
         </Link>
         <img
-          src="home-img.png"
+          src="https://oiqeacnqaafatdeoccav.supabase.co/storage/v1/object/public/home-image/home"
           alt="Football Fans Together"
           className="home-img"
         />
