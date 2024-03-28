@@ -1,6 +1,6 @@
 # FanMatch
 # Overview
-FanMatch is a dynamic platform designed to unite football fans. It is constructed using a React frontend and uses Supabase for the database. Built with passion for the sport, FanMatch facilitates meaningful connections among fans of various football teams. Whether you're looking for local fans to watch the game with, seeking to share your thoughts on the latest match, or wanting to celebrate your team's victory with like-minded supporters, FanMatch is the place for you.
+FanMatch is a dynamic platform designed to unite football fans. It is constructed using a React frontend and uses Supabase for the database as well as using the API-FOOTBALL api to populate data. Built with passion for the sport, FanMatch facilitates meaningful connections among fans of various football teams. Whether you're looking for local fans to watch the game with, seeking to share your thoughts on the latest match, or wanting to celebrate your team's victory with like-minded supporters, FanMatch is the place for you.
 # Features
 * User Profiles: Create and personalize your profile to showcase your favorite football team, your location, and a short bio about your football journey.
 * Find Fans: Search for fans based on team preference, location, or interests. FanMatch's intuitive matching system helps you connect with the right crowd.
