@@ -9,7 +9,7 @@ const Home = () => {
         <div className="home-title">Connect on the</div>
         <div className="home-title2">Pitch!</div>
         <div className="home-subtitle">
-          Connect With Other Fans and Find your football tribe.
+          Connect With Other Fans and Find your Football Tribe.
         </div>
         <Link to="/register">
           <button className="home-button">
